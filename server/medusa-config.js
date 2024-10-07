@@ -132,10 +132,10 @@ const modules = {
 const projectConfig = {
   jwt_secret: process.env.JWT_SECRET || "supersecret",
   cookie_secret: process.env.COOKIE_SECRET || "supersecret",
-  store_cors: STORE_CORS, //STORE_CORS||"*"|| "http://localhost:8000"
+  store_cors: "*", //STORE_CORS||"*"|| "http://localhost:8000"
   database_url: DATABASE_URL,
-  admin_cors: ADMIN_CORS, //ADMIN_CORS || "*" || "http://localhost:7000,http://localhost:7001",
-  worker_mode: process.env.MEDUSA_WORKER_MODE,
+  admin_cors: "*", //ADMIN_CORS || "*" || "http://localhost:7000,http://localhost:7001",
+  // worker_mode: process.env.MEDUSA_WORKER_MODE,
   database_extra: process.env.NODE_ENV !== "development" ?
       {
         ssl: {

@@ -20,7 +20,7 @@
     "watch": "cross-env tsc --watch",
     "test": "cross-env jest",
     "seed": "cross-env medusa seed -f ./data/seed.json",
-     "start": "npm run build && medusa migrations run && medusa start",
+    "start": "npm run build && medusa migrations run && medusa start",
     "start:custom": "cross-env npm run build && node --preserve-symlinks --trace-warnings index.js",
     "dev": "cross-env npm run build:server && medusa develop"
   },
@@ -31,6 +31,7 @@
     "@medusajs/event-bus-local": "1.9.9",
     "@medusajs/event-bus-redis": "^1.8.14",
     "@medusajs/file-local": "1.0.4",
+    "@medusajs/framework": "^0.0.1",
     "@medusajs/medusa": "^1.20.9",
     "@tanstack/react-query": "4.22.0",
     "body-parser": "^1.19.0",
