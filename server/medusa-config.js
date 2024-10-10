@@ -130,6 +130,9 @@ const modules = {
 
 /** @type {import('@medusajs/medusa').ConfigModule["projectConfig"]} */
 const projectConfig = {
+  
+  redis_url: REDIS_URL,
+
   jwt_secret: process.env.JWT_SECRET || "supersecret",
   cookie_secret: process.env.COOKIE_SECRET || "supersecret",
   store_cors: STORE_CORS, //STORE_CORS||"*"|| "http://localhost:8000"
