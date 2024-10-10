@@ -37,12 +37,12 @@ const REDIS_URL = process.env.REDIS_URL || "redis://localhost:6379";
 const plugins = [
   `medusa-fulfillment-manual`,
   `medusa-payment-manual`,
-  {
-    resolve: `@medusajs/file-local`,
-    options: {
-      upload_dir: "uploads",
-    },
-  },
+  // {
+  //   resolve: `@medusajs/file-local`,
+  //   options: {
+  //     upload_dir: "uploads",
+  //   },
+  // },
   {
     resolve: "@medusajs/admin",
     /** @type {import('@medusajs/admin').PluginOptions} */
@@ -55,7 +55,6 @@ const plugins = [
       develop: {
         open: process.env.OPEN_BROWSER !== "false",
       },
-      
     },
   },
   // ** algolia plugin
@@ -111,6 +110,37 @@ const plugins = [
       // webhook_secret: process.env.STRIPE_WEBHOOK_SECRET,
     },
   },
+  {
+    resolve: `medusa-plugin-dashboard`,
+    options: {
+      enableUI: true,
+    },
+  },
+  // Cloudinary plugin
+  {
+    resolve: `medusa-file-cloudinary`,
+    options: {
+      cloud_name: process.env.CLOUD_NAME,
+      api_key: process.env.CLOUD_API_KEY,
+      api_secret: process.env.CLOUD_API_SECRET,
+      secure: true,
+    },
+  },
+  //sendgrid plugin
+ 
+  {
+    resolve: `medusa-plugin-resend-custom`,
+    options: {
+      api_key: process.env.RESEND_API_ID,
+      template_path: process.env.SES_TEMPLATE_PATH,
+      subject_template_type: process.env.RESEND_SUBJECT_TEMPLATE_TYPE || "handlebars",
+      body_template_type: process.env.RESEND_BODY_TEMPLATE_TYPE || "handlebars",
+      order_placed_template: "order_placed",
+      order_shipped_template: "order_shipped",
+      customer_password_reset_template: "customer_password_reset",
+      gift_card_created_template: "gift_card_created",
+    },
+  },
 ];
 
 const modules = {
@@ -130,7 +160,6 @@ const modules = {
 
 /** @type {import('@medusajs/medusa').ConfigModule["projectConfig"]} */
 const projectConfig = {
-  
   redis_url: REDIS_URL,
 
   jwt_secret: process.env.JWT_SECRET || "supersecret",
@@ -139,13 +168,14 @@ const projectConfig = {
   database_url: DATABASE_URL,
   admin_cors: ADMIN_CORS, //ADMIN_CORS || "*" || "http://localhost:7000,http://localhost:7001",
   // worker_mode: process.env.MEDUSA_WORKER_MODE,
-  database_extra: process.env.NODE_ENV !== "development" ?
-      {
-        ssl: {
-          rejectUnauthorized: false,
-        },
-      } : {},
-
+  database_extra:
+    process.env.NODE_ENV !== "development"
+      ? {
+          ssl: {
+            rejectUnauthorized: false,
+          },
+        }
+      : {},
 
   // Uncomment the following lines to enable REDIS
   // redis_url: REDIS_URL
