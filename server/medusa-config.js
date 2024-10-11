@@ -123,24 +123,45 @@ const plugins = [
       cloud_name: process.env.CLOUD_NAME,
       api_key: process.env.CLOUD_API_KEY,
       api_secret: process.env.CLOUD_API_SECRET,
-      secure: true,
     },
   },
-  //sendgrid plugin
- 
+  // ** Uncomment to add Twilio SMS support
   {
-    resolve: `medusa-plugin-resend-custom`,
+    resolve: `medusa-plugin-twilio-sms`,
     options: {
-      api_key: process.env.RESEND_API_ID,
-      template_path: process.env.SES_TEMPLATE_PATH,
-      subject_template_type: process.env.RESEND_SUBJECT_TEMPLATE_TYPE || "handlebars",
-      body_template_type: process.env.RESEND_BODY_TEMPLATE_TYPE || "handlebars",
-      order_placed_template: "order_placed",
-      order_shipped_template: "order_shipped",
-      customer_password_reset_template: "customer_password_reset",
-      gift_card_created_template: "gift_card_created",
+      account_sid: process.env.TWILIO_SMS_ACCOUNT_SID,
+      auth_token: process.env.TWILIO_SMS_AUTH_TOKEN,
+      from_number: process.env.TWILIO_SMS_FROM_NUMBER,
     },
   },
+
+  // ** Uncomment to add Email support
+  {
+    resolve: "@rootxpdev/medusa-email-plugin",
+    options: {
+      templateDir: "node_modules/@rootxpdev/medusa-email-plugin/data/emails",
+      fromAddress: process.env.FROM_EMAIL, // Use the FROM_EMAIL env variable
+      smtpHost: process.env.SMTP_HOST, // Use the SMTP_HOST env variable
+      smtpPort: process.env.SMTP_PORT, // Use the SMTP_PORT env variable
+      smtpUser: process.env.SMTP_USER, // Use the SMTP_USER env variable
+      smtpPassword: process.env.SMTP_PASS, // Use the SMTP_PASS env variable
+    },
+  },
+  // ...,
+  // {
+  //   resolve: `medusa-plugin-sendgrid`,
+  //   options: {
+  //     api_key: process.env.SENDGRID_API_KEY,
+  //     from: process.env.SENDGRID_FROM,
+  //     order_placed_template: process.env||"SENDGRID_ORDER_PLACED_ID",
+  //     localization: {
+  //       "de-DE": {
+  //         // locale key
+  //         order_placed_template: process.env.SENDGRID_ORDER_PLACED_ID_LOCALIZED,
+  //       },
+  //     },
+  //   },
+  // },
 ];
 
 const modules = {

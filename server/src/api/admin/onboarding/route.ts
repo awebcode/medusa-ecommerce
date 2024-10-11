@@ -5,7 +5,7 @@ import OnboardingService from "../../../services/onboarding";
 
 export async function GET(req: MedusaRequest, res: MedusaResponse) {
   const onboardingService: OnboardingService =
-    req.scope.resolve("onboardingService");
+  req.scope.resolve("onboardingService");
 
   const status = await onboardingService.retrieve();
 

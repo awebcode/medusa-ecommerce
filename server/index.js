@@ -1,25 +1,24 @@
 const express = require("express")
 const { GracefulShutdownServer } = require("medusa-core-utils")
-const customRoutes = require("./routes/auth/auth.route")
+const globalRoutes = require("./routes/index.routes")
 const loaders = require("@medusajs/medusa/dist/loaders/index").default
 
 (async() => {
   async function start() {
     const app = express()
-    const directory = process.cwd()
 
     try {
       const { container } = await loaders({
-        directory,
+        directory:process.cwd(),
         expressApp: app,
       });
       const configModule = container.resolve("configModule");
       const port = process.env.PORT ?? configModule.projectConfig.port ?? 9000;
       // Middleware to parse JSON requests
-      app.use(express.json());
+      
 
       // Use your custom routes
-      app.use("/api", customRoutes); // Prefixing all custom routes with /api
+      app.use("/api/v1", globalRoutes); // Prefixing all custom routes with /api
       const server = GracefulShutdownServer.create(
         app.listen(port, (err) => {
           if (err) {
