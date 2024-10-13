@@ -2,7 +2,7 @@
 import { Button, Input, useToast } from "@medusajs/ui"
 import axios from "axios"
 import { useState } from "react"
-
+import { Toaster } from "@medusajs/ui"
 export default function NewsletterForm() {
   const {toast}=useToast()
   const [email, setEmail] = useState("")
@@ -44,6 +44,7 @@ export default function NewsletterForm() {
 
   return (
     <form onSubmit={subscribe}>
+      <Toaster />
       <h2>Sign Up for our newsletter</h2>
       <div className="flex items-center gap-2">
         <Input
