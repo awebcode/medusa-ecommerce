@@ -1,9 +1,10 @@
 "use client"
-import { Button, Input } from "@medusajs/ui"
+import { Button, Input, useToast } from "@medusajs/ui"
 import axios from "axios"
 import { useState } from "react"
 
 export default function NewsletterForm() {
+  const {toast}=useToast()
   const [email, setEmail] = useState("")
 
   function subscribe(e: React.FormEvent<HTMLFormElement>) {
@@ -20,12 +21,24 @@ export default function NewsletterForm() {
         }
       )
       .then((e) => {
-        alert("Subscribed successfully!")
+        toast({
+          title: "Success",
+          description: "Subscribed successfully!",
+          disableDismiss: true,
+          variant:"success"
+
+        })
+        
         setEmail("")
       })
       .catch((e) => {
         console.error(e)
-        alert("An error occurred")
+        toast({
+          title: "Error",
+          description: "An error occurred",
+          disableDismiss: true,
+          variant:"error"
+        })
       })
   }
 
