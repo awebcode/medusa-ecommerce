@@ -5,7 +5,7 @@ const Hero = () => {
       <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
         <div className="mx-auto grid max-w-screen-xl px-4 pb-8 md:grid-cols-12 lg:gap-12 lg:pb-16 xl:gap-0">
           <div className="content-center justify-self-start md:col-span-7 md:text-start">
-            <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight dark:text-white md:max-w-2xl md:text-5xl xl:text-6xl">
+            <h1 className="mb-4 text-4xl font-bold leading-none tracking-tight dark:text-white md:max-w-2xl md:text-5xl xl:text-6xl">
               Limited Time Offer!
               <br />
               Up to 50% OFF!
@@ -20,7 +20,7 @@ const Hero = () => {
               Shop Now
             </a>
           </div>
-          <div className="hidden md:col-span-5 md:mt-0 md:flex">
+          <div className="md:col-span-5 md:mt-0 flex">
             <img
               className="dark:hidden"
               src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/girl-shopping-list.svg"

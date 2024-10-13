@@ -32,15 +32,17 @@ export default function NewsletterForm() {
   return (
     <form onSubmit={subscribe}>
       <h2>Sign Up for our newsletter</h2>
-      <Input
-        type="email"
-        name="email"
-        id="email"
-        placeholder="example@gmail.com"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <Button type="submit">Subscribe</Button>
+      <div className="flex items-center gap-2">
+        <Input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="example@gmail.com"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Button type="submit">Subscribe</Button>
+      </div>
     </form>
   )
 }
