@@ -1,7 +1,6 @@
-
 const Hero = () => {
   return (
-    <div className="h-[75vh] w-full border-b border-ui-border-base relative bg-ui-bg-subtle">
+    <div className=" h-[75vh] w-full border-b border-ui-border-base relative bg-ui-bg-subtle">
       <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
         <div className="mx-auto grid max-w-screen-xl px-4 pb-8 md:grid-cols-12 lg:gap-12 lg:pb-16 xl:gap-0">
           <div className="content-center justify-self-start md:col-span-7 md:text-start">

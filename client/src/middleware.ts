@@ -1,7 +1,7 @@
 import { Region } from "@medusajs/medusa"
 import { notFound } from "next/navigation"
 import { NextRequest, NextResponse } from "next/server"
-
+import staticRegions from "./lib/staticRegions.json"
 const BACKEND_URL = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL
 const DEFAULT_REGION = process.env.NEXT_PUBLIC_DEFAULT_REGION || "us"
 
@@ -10,27 +10,74 @@ const regionMapCache = {
   regionMapUpdated: Date.now(),
 }
 
+// async function getRegionMap() {
+//   const { regionMap, regionMapUpdated } = regionMapCache
+
+//   if (
+//     !regionMap.keys().next().value ||
+//     regionMapUpdated < Date.now() - 3600 * 1000
+//   ) {
+//     // Fetch regions from Medusa. We can't use the JS client here because middleware is running on Edge and the client needs a Node environment.
+//     const { regions } = await fetch(`${BACKEND_URL}/store/regions`, {
+//       next: {
+//         revalidate: 3600,
+//         tags: ["regions"],
+//       },
+//     }).then((res) => res.json())
+
+//     if (!regions) {
+//       notFound()
+//     }
+
+//     // Create a map of country codes to regions.
+//     regions.forEach((region: Region) => {
+//       region.countries.forEach((c) => {
+//         regionMapCache.regionMap.set(c.iso_2, region)
+//       })
+//     })
+
+//     regionMapCache.regionMapUpdated = Date.now()
+//   }
+
+//   return regionMapCache.regionMap
+// }
 async function getRegionMap() {
   const { regionMap, regionMapUpdated } = regionMapCache
 
+  // Check if we need to fetch new regions
   if (
     !regionMap.keys().next().value ||
     regionMapUpdated < Date.now() - 3600 * 1000
   ) {
-    // Fetch regions from Medusa. We can't use the JS client here because middleware is running on Edge and the client needs a Node environment.
-    const { regions } = await fetch(`${BACKEND_URL}/store/regions`, {
+    // Create a promise for fetching regions
+    const fetchRegionsPromise = fetch(`${BACKEND_URL}/store/regions`, {
       next: {
         revalidate: 3600,
         tags: ["regions"],
       },
     }).then((res) => res.json())
 
-    if (!regions) {
+    // Use Promise.race to handle timeout
+    const regionFetchTimeout = new Promise<any>((resolve) => {
+      setTimeout(() => {
+       
+        resolve(staticRegions)
+      }, 2000) // 1.5 seconds timeout
+    })
+    // console.log({regionFetchTimeout: regionFetchTimeout.then((d) => console.log(d)), fetchRegionsPromise:fetchRegionsPromise.then((d) => console.log(d))})
+
+    const regions = await Promise.race([
+      fetchRegionsPromise,
+      regionFetchTimeout,
+    ]);
+    // console.log({regions})
+
+    if (!regions || !regions.regions) {
       notFound()
     }
 
     // Create a map of country codes to regions.
-    regions.forEach((region: Region) => {
+    regions.regions.forEach((region: Region) => {
       region.countries.forEach((c) => {
         regionMapCache.regionMap.set(c.iso_2, region)
       })
@@ -41,7 +88,6 @@ async function getRegionMap() {
 
   return regionMapCache.regionMap
 }
-
 /**
  * Fetches regions from Medusa and sets the region cookie.
  * @param request
