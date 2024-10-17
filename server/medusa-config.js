@@ -57,8 +57,9 @@ const plugins = [
       },
     },
   },
-  // ** algolia plugin
+
   {
+    // ** algolia plugin
     resolve: `medusa-plugin-algolia`,
     options: {
       applicationId: process.env.ALGOLIA_APP_ID,
@@ -102,7 +103,8 @@ const plugins = [
       },
     },
   },
-  // ** Uncomment to add Stripe support
+    // ** Uncomment to add Stripe support
+
   {
     resolve: `medusa-payment-stripe`,
     options: {
@@ -110,13 +112,8 @@ const plugins = [
       // webhook_secret: process.env.STRIPE_WEBHOOK_SECRET,
     },
   },
-  {
-    resolve: `medusa-plugin-dashboard`,
-    options: {
-      enableUI: true,
-    },
-  },
-  // Cloudinary plugin
+
+  //*Cloudinary plugin
   {
     resolve: `medusa-file-cloudinary`,
     options: {
@@ -125,7 +122,8 @@ const plugins = [
       api_secret: process.env.CLOUD_API_SECRET,
     },
   },
-  // ** Uncomment to add Twilio SMS support
+
+  // // ** Uncomment to add Twilio SMS support
   {
     resolve: `medusa-plugin-twilio-sms`,
     options: {
@@ -135,18 +133,18 @@ const plugins = [
     },
   },
 
-  // ** Uncomment to add Email support
-  {
-    resolve: "@rootxpdev/medusa-email-plugin",
-    options: {
-      templateDir: "node_modules/@rootxpdev/medusa-email-plugin/data/emails",
-      fromAddress: process.env.FROM_EMAIL, // Use the FROM_EMAIL env variable
-      smtpHost: process.env.SMTP_HOST, // Use the SMTP_HOST env variable
-      smtpPort: process.env.SMTP_PORT, // Use the SMTP_PORT env variable
-      smtpUser: process.env.SMTP_USER, // Use the SMTP_USER env variable
-      smtpPassword: process.env.SMTP_PASS, // Use the SMTP_PASS env variable
-    },
-  },
+  // // ** Uncomment to add Email support
+  // {
+  //   resolve: "@rootxpdev/medusa-email-plugin",
+  //   options: {
+  //     templateDir: "node_modules/@rootxpdev/medusa-email-plugin/data/emails",
+  //     fromAddress: process.env.FROM_EMAIL, // Use the FROM_EMAIL env variable
+  //     smtpHost: process.env.SMTP_HOST, // Use the SMTP_HOST env variable
+  //     smtpPort: process.env.SMTP_PORT, // Use the SMTP_PORT env variable
+  //     smtpUser: process.env.SMTP_USER, // Use the SMTP_USER env variable
+  //     smtpPassword: process.env.SMTP_PASS, // Use the SMTP_PASS env variable
+  //   },
+  // },
   // ...,
   // {
   //   resolve: `medusa-plugin-sendgrid`,

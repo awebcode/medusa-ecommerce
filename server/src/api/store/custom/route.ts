@@ -1,13 +1,25 @@
-import type { MedusaRequest, MedusaResponse } from "@medusajs/medusa";
+import type { 
+  MedusaRequest, 
+  MedusaResponse,
+} from "@medusajs/medusa"
 
-export const GET = (req: MedusaRequest, res: MedusaResponse) => {
+export const GET = (
+  req: MedusaRequest,
+  res: MedusaResponse
+) => {
   res.json({
     message: "[GET] Hello world!",
-  });
-};
+  })
+}
 
-export const POST = (req: MedusaRequest, res: MedusaResponse) => {
+export const POST = (
+  req: MedusaRequest, 
+  res: MedusaResponse
+) => {
   res.json({
     message: "[POST] Hello world!",
+    paras: req.params,
+    query: req.query,
+    body: req.body,
   });
-};
+}
